@@ -63,4 +63,4 @@ main = do
     print $ show result
 
 
--- 2562
+-- 1902
