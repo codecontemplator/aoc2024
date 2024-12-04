@@ -9,14 +9,6 @@ data Grid a = Grid {
     gdata :: Store (Int,Int) a
 }
 
-isMatch :: Eq a => [a] -> Store i a -> (i -> i) -> Bool
-isMatch as g step = 
-  let 
-    positions = iterate step (pos g)
-    matches = map (\(a,i) -> peek i g == a) (zip as positions)
-  in 
-    all id matches
-
 isMatch2 :: Store (Int,Int) Char -> Bool
 isMatch2 g = 
     let
