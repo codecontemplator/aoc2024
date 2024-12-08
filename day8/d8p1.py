@@ -35,18 +35,4 @@ for id, positions in antennas.items():
             if (inside(xn2,yn2)):
                 nodes.add((xn2,yn2))
 
-""""
-for h in range(height):
-    for w in range(width):
-        if (w,h) in nodes:
-            print('#', end = "")
-        else: 
-            ch = lines[h][w]
-            if ch != '.':
-                print(ch, end = "")
-            else:
-                print(".", end = "")
-    print()
-"""
-
 print(len(nodes))
