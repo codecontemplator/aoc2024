@@ -4,7 +4,6 @@ def unpack(data):
         size = int(d)
         val = i // 2 if i%2 == 0 else None
         arr += [ (val, size) ] 
-        lastval = val
     return arr
 
 def toStr(arr):
@@ -22,9 +21,6 @@ def pack(arrin):
     print(len(arr))
     i = len(arr)-1
     while i>0:
-        if (i % 100 == 0):
-            print(str(i))
-
         # print(toStr(expand(arr)))
         vi, si = arr[i]
         if vi == None:
