@@ -1,4 +1,3 @@
-#from collections import Counter
 from collections import defaultdict
 
 def split(w):
@@ -34,5 +33,4 @@ with open(filename, 'r') as file:
 for _ in range(75):
     arr = process(arr)
 
-#print(dedup([('a', 5), ('b',3), ('a', 2), ('a', 1)]))
 print(sum([ c for (_,c) in arr]))
