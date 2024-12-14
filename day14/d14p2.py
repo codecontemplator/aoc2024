@@ -59,25 +59,15 @@ def display(robots, f):
     m = [[ '.' for _ in range(width) ] for _ in range(height)]
     for ((x,y),_) in robots:
         m[y][x] = 'X'
-    #res = [ ''.join(m[y]) for y in range(height) ]
     for y in range(height):
         s = ''.join(m[y])
         print(s, file=f)
 
-# def safetyFactor(robots):
-#     qs = [ result for robot in robots if (result := quad(robot)) is not None ]
-#     c = Counter(qs)
-#     return reduce(mul, c.values())
-
-#robots = [ parse(line) for line in lines ]
-robots = [((0,0),(0,0)), ((10,0),(0,0)), ((10,5),(0,0)), ((width-1,0),(0,0)), ((width-1,height-1),(0,0)), ((0,height-1),(0,0))]
+robots = [ parse(line) for line in lines ]
 with open('day14/tmp2.txt', 'w') as f:
-    simLen = 1
+    simLen = 10000
     for i in range(simLen):
         print(f"{i}:", file=f)
         robots = step(robots)
         display(robots, f)
         print('--', file=f)
-
-#sf = safetyFactor(robots)
-#print(sf)
