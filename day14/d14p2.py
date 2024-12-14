@@ -38,23 +38,6 @@ def move(robot):
 def step(robots):
     return [ move(robot) for robot in robots ]
 
-def quad(robot):
-    midX = width // 2
-    midY = height // 2
-    ((x,y),_) = robot
-    q = None
-    if x < midX:
-        if y < midY:
-            q = 0
-        elif y > midY:
-            q = 2
-    elif x > midX:
-        if y < midY:
-            q = 1
-        elif y > midY:
-            q = 3
-    return q
-
 def display(robots, f):
     m = [[ '.' for _ in range(width) ] for _ in range(height)]
     for ((x,y),_) in robots:
@@ -64,7 +47,7 @@ def display(robots, f):
         print(s, file=f)
 
 robots = [ parse(line) for line in lines ]
-with open('day14/tmp2.txt', 'w') as f:
+with open('day14/tmp.txt', 'w') as f:
     simLen = 10000
     for i in range(simLen):
         print(f"{i}:", file=f)
