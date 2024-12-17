@@ -1,7 +1,7 @@
 from collections import defaultdict
 import sys
 
-filename = 'day16/input.txt'
+filename = 'day16/sample2.txt'
 
 with open(filename, 'r') as file:
     lines = file.read().splitlines()
@@ -25,40 +25,55 @@ def calculateRotationCost(dx, dy, dx2, dy2):
          return 2000
     return 1000
 
-def search(x, y, dx, dy, cost, visited, costMap):
+def search(x, y, dx, dy, cost, visited, costMap, path):
     if (x,y) in visited:
         return []
 
-    leastKnownCost = costMap[(x,y,dx,dy)]
-    if cost >= leastKnownCost:
-        return []
-    else:
-        costMap[(x,y,dx,dy)] = cost
+    # leastKnownCost = costMap[(x,y)]
+    # if cost >= leastKnownCost:
+    #     return []
+    # else:
+    #     costMap[(x,y)] = cost
 
     ch = m[y][x]
     if ch == '#':
         return []
+
+    path2 = path + [(x,y)]
     if ch == 'E':
-         return [cost]
+         return [(cost, path2)]
     
     visited2 = visited | frozenset([(x,y)])
-    
+
     upCost = calculateRotationCost(dx, dy, 0, -1)
     downCost = calculateRotationCost(dx, dy, 0, 1)
     leftCost = calculateRotationCost(dx, dy, -1, 0)
     rightCost = calculateRotationCost(dx, dy, 1, 0)
     
-    upList    = search(x,   y-1,  0, -1, cost + 1 + upCost, visited2, costMap)
-    downList  = search(x,   y+1,  0, +1, cost + 1 + downCost, visited2, costMap)
-    leftList  = search(x-1, y  , -1,  0, cost + 1 + leftCost, visited2, costMap)
-    rightList = search(x+1, y  , +1,  0, cost + 1 + rightCost, visited2, costMap)
+    upList    = search(x,   y-1,  0, -1, cost + 1 + upCost, visited2, costMap, path2)
+    downList  = search(x,   y+1,  0, +1, cost + 1 + downCost, visited2, costMap, path2)
+    leftList  = search(x-1, y  , -1,  0, cost + 1 + leftCost, visited2, costMap, path2)
+    rightList = search(x+1, y  , +1,  0, cost + 1 + rightCost, visited2, costMap, path2)
 
     return upList + downList + leftList + rightList
 
 sys.setrecursionlimit(20000)
 
 maxint_defaultdict = defaultdict(lambda: sys.maxsize)
-costs = search(initX, initY, 1, 0, 0, frozenset([]), maxint_defaultdict)
+costs = search(initX, initY, 1, 0, 0, frozenset([]), maxint_defaultdict, [])
 
 
-print(sorted(costs))
+result = sorted(costs, key=lambda x: x[0])
+minCost = result[0][0]
+minPath = set([ p for (c, ps) in result if c == minCost for p in ps])
+
+
+for y in range(height):
+    row = [ m[y][x] for x in range(width) ]
+    for x in range(width):        
+        if (x,y) in minPath:
+            row[x] = "O"
+    print(''.join(row))
+
+
+print(len(minPath))
