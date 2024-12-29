@@ -83,8 +83,6 @@ swap("tbt", "z32", gatesDict)
 swap("qnf", "vpm", gatesDict)
 
 fails = 0
-verified = []
-notVerified = gatesList.copy()
 for bitPos in range(numBits):
     ok = testOneBitAdder(bitPos, gatesDict)
     print(f"{bitPos}: {ok}")
