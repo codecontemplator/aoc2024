@@ -22,7 +22,7 @@ def load():
 
 ops = load()
 
-with open('day24/network2.dot','w') as file:
+with open('day24/network.dot','w') as file:
     file.write("digraph G {\n")
     #file.write("  subgraph cluster_X {\n")
     for i in range(44):
